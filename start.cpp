@@ -23,8 +23,21 @@ int calculator(){
     cin >> b;
 
     result = a + b; 
-
     return result;  
+}
+
+void newline(){
+    cout << "\n+++++++++++++++++++++++++++++++++" << endl;
+    return;
+}
+
+
+void loops(){
+
+    for(int i = 0; i <= 7; i++){
+        cout << "\nHello = " << i; 
+    }
+    return;
 }
 
 
@@ -45,7 +58,10 @@ int main() {
     cout << "Result of the Function :->  " << firstFunction() << endl; 
     cout << "Result of the second  Function :->  " << second(8.5,3.5); 
 
-    cout << "\nErgebnis =\t" << calculator();
+    //cout << "\nErgebnis =\t" << calculator();
+    newline();
+
+    loops(); 
 
 
 

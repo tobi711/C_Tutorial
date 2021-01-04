@@ -56,7 +56,7 @@ void visitor_array(){
     for( n=0; n<10; n++){
         device_id[n] = n;
         mac_adr[n] = n + mac[n]; 
-        ari_time[n] = "13-44-12";
+        ari_time[n] = "13-55-12";
 
         cout << "\n device \t" <<  device_id[n];
         cout << "\n mac \t " <<  mac_adr[n]; 

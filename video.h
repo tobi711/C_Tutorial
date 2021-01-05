@@ -18,7 +18,6 @@ struct videos {
 
 void printVideo (struct videos *vid);
 
-
 void videothek() {
 
     struct videos vid1;

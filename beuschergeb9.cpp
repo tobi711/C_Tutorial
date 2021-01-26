@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : Besucherstrom.cpp
-// Author      :
+// Author      : 
 // Version     :
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
@@ -17,8 +17,8 @@ using namespace std;
 
 #define LEN 4
 
-// 1) Funktion gebe Anzahl an Personen im Gebäude aus
-// Alle die Reingehen müssen erfasst werden
+// 1) Funktion gebe Anzahl an Personen im GebÃ¤ude aus
+// Alle die Reingehen mÃ¼ssen erfasst werden
 
 // Besucher ID bilden aus MAC Adresse + Zeit
 
@@ -53,6 +53,12 @@ void ausgabe_besucher_vor(besucher person){
 	cout << "ID MAC " << person.mac << " Ankunftszeit -> ";
 	cout << "Zeit " << person.zeit << "\n";
 }
+
+void ausgabe_besuchertag (besucher person){
+	cout << "Gesamt Besucher Daten" << endl;
+	cout << "ID MAC " << person.mac << endl;
+}
+
 int compare(string a,string b){
 
     for(int i=0; a[i]!='\0'; i++){
@@ -81,15 +87,15 @@ void besucher_anlegen(){
 		personen[i].mac = mac_speicher[i];
 		personen[i].zeit = zeit_speicher[i];
 	}
-	//Besucherzähler
+	//BesucherzÃ¤hler
 	counter=0;
 	for(i=0; i < LEN; i++){
 		ausgabe_besucher_eingang(personen[i]);
 		counter++;
 	}
-	cout << "\nAktuelle Anzahl an Personen im Gebäude -> " << counter << "\n" <<endl;
+	cout << "\nAktuelle Anzahl an Personen im GebÃ¤ude -> " << counter << "\n" <<endl;
 
-	//Personen verlassen Gebäude wieder
+	//Personen verlassen GebÃ¤ude wieder
 	for(i=0; i < LEN; i++){
 		cout << "Ausgangs MACS " << mac_speicher_out[i] << endl;
 		personen[i].mac = mac_speicher_out[i];
@@ -113,28 +119,28 @@ void besucher_anlegen(){
 			anzahl_besucher++;
 		}
 		else {
-			cout << "\nNoch im Gebäude = " << mac_speicher[i] << endl;
+			cout << "\nNoch im GebÃ¤ude = " << mac_speicher[i] << endl;
 			counter++;
 		}
 	}
-	cout << "\nAnzahl an Personen die das Gebäude NICHT verlassen haben = " << counter << "\n" <<endl;
+	cout << "\nAnzahl an Personen die das GebÃ¤ude NICHT verlassen haben = " << counter << "\n" <<endl;
 
-	// Prozent an Personen die in das Gebäude eintreten
+	// Prozent an Personen die in das GebÃ¤ude eintreten
 	// ermittle Anzahl an gesamt MACs
 	// counter Liste 1 und Liste 2
 	// Berechne Prozentzahl 2/100 = 2 %
 
-	//Anlegen der Liste vor Gebäude
+	//Anlegen der Liste vor GebÃ¤ude
 	for(i=0; i < LEN; i++){
-		cout << "VOR Gebäude MACS " << mac_vor_geb[i] << endl;
+		cout << "VOR GebÃ¤ude MACS " << mac_vor_geb[i] << endl;
 		personen[i].mac = mac_vor_geb[i];
 		personen[i].zeit = zeit_speicher_vor[i];
 	}
-	//Vor Gebäude
+	//Vor GebÃ¤ude
 	for(i=0; i < LEN; i++){
 		ausgabe_besucher_vor(personen[i]);
 	}
-	//Bestimmen der Personen vor dem Gebäude
+	//Bestimmen der Personen vor dem GebÃ¤ude
 	counter = 0;
 	anzahl_besucher = 0;
 	for(i=0; i < LEN; i++ ){
@@ -142,24 +148,75 @@ void besucher_anlegen(){
 		richtig = compare(mac_speicher[i],mac_vor_geb[i]);
 
 		if(richtig == true){
-			cout << "War vor und in dem Gebäude" << " MAC Adresse = " << mac_speicher[i] << endl;
+			cout << "War vor und in dem GebÃ¤ude" << " MAC Adresse = " << mac_speicher[i] << endl;
 			anzahl_besucher++;
 		}
 		else {
-			cout << "\nNur vor Gebäude = " << mac_vor_geb[i] << endl;
+			cout << "\nNur vor GebÃ¤ude = " << mac_vor_geb[i] << endl;
 			counter++;
 		}
 	}
 
-	cout << "\nAnzahl an Besucher die in das Gebäude abgebogen sind ->  " << anzahl_besucher << endl;
-	cout << "Anzahl an Personen die das Gebäude NICHT betreten haben = " << counter <<endl;
+	cout << "\nAnzahl an Besucher die in das GebÃ¤ude abgebogen sind ->  " << anzahl_besucher << endl;
+	cout << "Anzahl an Personen die das GebÃ¤ude NICHT betreten haben = " << counter <<endl;
 
 	float prozent;
 	prozent = (float(anzahl_besucher) / float(LEN)) * 100 ;
 
-	cout << "Prozentsatz an Personen die in das Gebäude abgebogen sind " << prozent << " %" << endl;
+	cout << "Prozentsatz an Personen die in das GebÃ¤ude abgebogen sind " << prozent << " %" << endl;
 
 }
 
+void besucher_gesamt(){
+	//ermittle gesamte Besucherzahl an einem Tag
+	//MAC adressen mÃ¼ssen eizigartig sein
+
+	string mac_speicher [10] = {"1421","2222","3333","2111","2424","4323","5343","1421"};
+
+	int i,j,counter;
+
+	for(i=0; i < 8; i++){
+		cout << "Besucher MACS " << mac_speicher[i] << endl;
+		personen[i].mac = mac_speicher[i];
+	}
+
+	string buff = "";
+	int doublecounter, minus_counter = 0;
+	counter=0;
+
+	for(i=0; i < 8; i++){
+		buff = personen[i].mac;
+		ausgabe_besuchertag(personen[i]);
+		counter++;
+		doublecounter = 0;
+
+		for(j=0; j < 8; j++ ){
+			if(buff != personen[j].mac){
+				cout << "unique " << buff << endl;
+			}
+			else if(buff == personen[j].mac){
+					cout << "double" << buff <<  endl;
+					doublecounter++;
+					cout << doublecounter <<endl;
+				}
+		}
+		if(doublecounter == 1){
+			cout << "OKE eigene Adresse in der Liste " << buff << endl;
+		}// sonst muss es gelÃ¶scht werden die doppelten EintrÃ¤ge
+		else if (doublecounter > 1){
+			minus_counter++;
+			cout << "lÃ¶sche mac adresse einmal " << buff << endl;
+		}
+	}
+	cout << "\nBesucherzahl von ganzem TAG -> " << counter - minus_counter << "\n" << endl;
+}
 
 
+int main() {
+
+	//besucher_anlegen();
+
+	besucher_gesamt();
+
+	return 0;
+}
